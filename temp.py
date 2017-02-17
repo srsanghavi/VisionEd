@@ -1,8 +1,9 @@
 import cv2
 import urllib
 import numpy as np
-req = urllib.urlopen('https://www.wired.com/wp-content/uploads/2015/09/google-logo-1200x630.jpg')
+req = urllib.urlopen('http://answers.opencv.org/upfiles/1432333105327698.jpg')
 arr = np.asarray(bytearray(req.read()), dtype=np.uint8)
 img = cv2.imdecode(arr,-1)
 global_img = img
+global_img =  cv2.cvtColor(global_img, cv2.COLOR_BGR2GRAY)
 cv2.imwrite('temp.jpg',global_img)

@@ -27,7 +27,7 @@
   </style>
 </head>
 <body>
-  <table width="60%" height="100%">
+  <table width="99%" height="100%">
     <tr>
       <td>
         <h1><a href="#">VisionEd</a>
@@ -448,7 +448,7 @@
                 <category namebtVariables}" colour="330" custom="VARIABLE"></category>
                 <category namebtFunctions}" colour="290" custom="PROCEDURE"></category>
               </xml>
-              <div id="output"  style=" width:39vw; height:99vh; border:solid; border-width:1px;border-color: #f95252;position: fixed;top: 0px;right:0px">
+              <div id="output"  style=" width:0vw; height:99vh; border:solid; border-width:1px;border-color: #f95252;position: fixed;top: 0px;right:0px">
                 <form target="_new" id="form_code"  action="http://localhost/visionEd/process.php" method="POST" >
                  <textarea type="text" id="code_txtArea" name="code_txtArea" style="border:none ;resize: none;width: 98%;height:98vh" ></textarea>
                </form>
