@@ -506,14 +506,7 @@ Code.runJS = function() {
  code = headers+'\n'+code;
  document.getElementById("code_txtArea").value = code;
  document.getElementById("form_code").submit();
- 
-  code = '';
-  /*Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-  try {
-    eval(code);
-  } catch (e) {
-    alert(MSG['badCode'].replace('%1', e));
-  }*/
+ code = '';
 };
 
 /**
