@@ -7,9 +7,9 @@ goog.require('Blockly.Python');
 Blockly.Blocks['read_image'] = {
   init: function() {
     this.appendValueInput("url")
-        .setCheck("String")
-        .appendField("Read Image")
-        .appendField("Image URL");
+    .setCheck("String")
+    .appendField("Read Image")
+    .appendField("Image URL");
     this.setOutput(true, "mat");
     this.setColour(0);
     this.setTooltip('Please provide URL of input image');
@@ -20,8 +20,8 @@ Blockly.Blocks['read_image'] = {
 Blockly.Blocks['display_image'] = {
   init: function() {
     this.appendValueInput("image")
-        .setCheck("mat")
-        .appendField("Display Image");
+    .setCheck("mat")
+    .appendField("Display Image");
     this.setColour(0);
     this.setTooltip('Please provide URL of input image');
     this.setHelpUrl('');
@@ -58,9 +58,9 @@ Blockly.Python['display_image'] = function(block) {
 Blockly.Blocks['convert_color'] = {
   init: function() {
     this.appendValueInput("image")
-        .setCheck("mat")
-        .appendField("Convert color")
-        .appendField(new Blockly.FieldDropdown([["RGB2GRAY","rgb2gray"], ["RGB2HSV","rgb2hsv"]]), "from2to");
+    .setCheck("mat")
+    .appendField("Convert color")
+    .appendField(new Blockly.FieldDropdown([["RGB2GRAY","rgb2gray"], ["RGB2HSV","rgb2hsv"]]), "from2to");
     this.setInputsInline(false);
     this.setOutput(true, "mat");
     this.setColour(180);
@@ -90,12 +90,12 @@ Blockly.Python['convert_color'] = function(block) {
 Blockly.Blocks['im_difference'] = {
   init: function() {
     this.appendValueInput("image_1")
-        .setCheck("mat")
-        .appendField("Image 1");
+    .setCheck("mat")
+    .appendField("Image 1");
     this.appendValueInput("image_2")
-        .setCheck("mat")
-        .appendField("\"minus\"")
-        .appendField("Image 2");
+    .setCheck("mat")
+    .appendField("\"minus\"")
+    .appendField("Image 2");
     this.setInputsInline(true);
     this.setOutput(true, "mat");
     this.setColour(230);
@@ -106,12 +106,12 @@ Blockly.Blocks['im_difference'] = {
 Blockly.Blocks['im_addition'] = {
   init: function() {
     this.appendValueInput("image_1")
-        .setCheck("mat")
-        .appendField("Image 1");
+    .setCheck("mat")
+    .appendField("Image 1");
     this.appendValueInput("image_2")
-        .setCheck("mat")
-        .appendField("\"plus\"")
-        .appendField("Image 2");
+    .setCheck("mat")
+    .appendField("\"plus\"")
+    .appendField("Image 2");
     this.setInputsInline(true);
     this.setOutput(true, "mat");
     this.setColour(230);
@@ -122,11 +122,11 @@ Blockly.Blocks['im_addition'] = {
 Blockly.Blocks['im_multiply_const'] = {
   init: function() {
     this.appendValueInput("image_1")
-        .setCheck("mat")
-        .appendField("Input image");
-    this.appendValueInput("image_2")
-        .setCheck("Number")
-        .appendField("X constant");
+    .setCheck("mat")
+    .appendField("Input image");
+    this.appendValueInput("const")
+    .setCheck("Number")
+    .appendField("X constant");
     this.setInputsInline(true);
     this.setOutput(true, "mat");
     this.setColour(230);
@@ -137,11 +137,11 @@ Blockly.Blocks['im_multiply_const'] = {
 Blockly.Blocks['im_addition_const'] = {
   init: function() {
     this.appendValueInput("image_1")
-        .setCheck("mat")
-        .appendField("Input image");
-    this.appendValueInput("image_2")
-        .setCheck("Number")
-        .appendField("+ constant");
+    .setCheck("mat")
+    .appendField("Input image");
+    this.appendValueInput("const")
+    .setCheck("Number")
+    .appendField("+ constant");
     this.setInputsInline(true);
     this.setOutput(true, "mat");
     this.setColour(230);
@@ -152,11 +152,11 @@ Blockly.Blocks['im_addition_const'] = {
 Blockly.Blocks['im_subtraction_const'] = {
   init: function() {
     this.appendValueInput("image_1")
-        .setCheck("mat")
-        .appendField("Input image");
-    this.appendValueInput("image_2")
-        .setCheck("Number")
-        .appendField("- constant");
+    .setCheck("mat")
+    .appendField("Input image");
+    this.appendValueInput("const")
+    .setCheck("Number")
+    .appendField("- constant");
     this.setInputsInline(true);
     this.setOutput(true, "mat");
     this.setColour(230);
@@ -169,7 +169,28 @@ Blockly.Python['im_difference'] = function(block) {
   var value_image_1 = Blockly.Python.valueToCode(block, 'image_1', Blockly.Python.ORDER_ATOMIC);
   var value_image_2 = Blockly.Python.valueToCode(block, 'image_2', Blockly.Python.ORDER_ATOMIC);
   // TODO: Assemble Python into code variable.
-  var code = '...';
+  var code = value_image_1 + "\n";
+  code = code +"\n" +"image1 = global_img";
+  code = code +"\n" + value_image_2;
+  code = code +"\n" +"image2 = global_img";
+  code = code +"\n" +"height1, width1, channels1 = image1.shape";
+  code = code +"\n" +"height2, width2, channels2 = image2.shape";
+
+  code = code +"\n" +"if ((channels1 != channels2) or (height1 != height2) or (width1 != width2)):";
+  code = code +"\n" +"  temp = np.zeros([height1,width1,channels1],np.uint8)";
+  code = code +"\n" +"  for c in xrange(channels1):";
+  code = code +"\n" +"    if c>=channels2:";
+  code = code +"\n" +"     break;";
+  code = code +"\n" +"    for h in xrange(height1):";
+  code = code +"\n" +"      if h>=height2:";
+  code = code +"\n" +"        break;";
+  code = code +"\n" +"      for w in xrange(width1):";
+  code = code +"\n" +"        if w >= width2:";
+  code = code +"\n" +"          break;";
+  code = code +"\n" +"        temp[h,w,c]=image2[h,w,c]";
+
+  code = code +"\n" +"image2 = temp";
+  code = code +"\n" + "global_img = cv2.subtract(image1,image2)";
   // TODO: Change ORDER_NONE to the correct strength.
   return [code];
 };
@@ -177,31 +198,58 @@ Blockly.Python['im_addition'] = function(block) {
   var value_image_1 = Blockly.Python.valueToCode(block, 'image_1', Blockly.Python.ORDER_ATOMIC);
   var value_image_2 = Blockly.Python.valueToCode(block, 'image_2', Blockly.Python.ORDER_ATOMIC);
   // TODO: Assemble Python into code variable.
-  var code = '...';
+  var code = value_image_1 + "\n";
+  code = code +"\n" +"image1 = global_img";
+  code = code +"\n" + value_image_2;
+  code = code +"\n" +"image2 = global_img";
+  code = code +"\n" +"height1, width1, channels1 = image1.shape";
+  code = code +"\n" +"height2, width2, channels2 = image2.shape";
+
+  code = code +"\n" +"if ((channels1 != channels2) or (height1 != height2) or (width1 != width2)):";
+  code = code +"\n" +"  temp = np.zeros([height1,width1,channels1],np.uint8)";
+  code = code +"\n" +"  for c in xrange(channels1):";
+  code = code +"\n" +"    if c>=channels2:";
+  code = code +"\n" +"     break;";
+  code = code +"\n" +"    for h in xrange(height1):";
+  code = code +"\n" +"      if h>=height2:";
+  code = code +"\n" +"        break;";
+  code = code +"\n" +"      for w in xrange(width1):";
+  code = code +"\n" +"        if w >= width2:";
+  code = code +"\n" +"          break;";
+  code = code +"\n" +"        temp[h,w,c]=image2[h,w,c]";
+
+  code = code +"\n" +"image2 = temp";
+  code = code +"\n" + "global_img = cv2.add(image1,image2)";
   // TODO: Change ORDER_NONE to the correct strength.
   return [code];
 };
 Blockly.Python['im_multiply_const'] = function(block) {
   var value_image_1 = Blockly.Python.valueToCode(block, 'image_1', Blockly.Python.ORDER_ATOMIC);
-  var value_image_2 = Blockly.Python.valueToCode(block, 'image_2', Blockly.Python.ORDER_ATOMIC);
+  var value_const = Blockly.Python.valueToCode(block, 'const', Blockly.Python.ORDER_ATOMIC);
   // TODO: Assemble Python into code variable.
-  var code = '...';
+  var code = value_image_1 + "\n";
+  code = code +  "image1 = global_img";
+  code = code + "\n" + "global_img = image1*"+value_const;
   // TODO: Change ORDER_NONE to the correct strength.
   return [code];
 };
 Blockly.Python['im_addition_const'] = function(block) {
-  var value_image_1 = Blockly.Python.valueToCode(block, 'image_1', Blockly.Python.ORDER_ATOMIC);
-  var value_image_2 = Blockly.Python.valueToCode(block, 'image_2', Blockly.Python.ORDER_ATOMIC);
+   var value_image_1 = Blockly.Python.valueToCode(block, 'image_1', Blockly.Python.ORDER_ATOMIC);
+  var value_const = Blockly.Python.valueToCode(block, 'const', Blockly.Python.ORDER_ATOMIC);
   // TODO: Assemble Python into code variable.
-  var code = '...';
+  var code = value_image_1 + "\n";
+  code = code +  "image1 = global_img";
+  code = code + "\n" + "global_img = image1+"+value_const;
   // TODO: Change ORDER_NONE to the correct strength.
   return [code];
 };
 Blockly.Python['im_subtraction_const'] = function(block) {
-  var value_image_1 = Blockly.Python.valueToCode(block, 'image_1', Blockly.Python.ORDER_ATOMIC);
-  var value_image_2 = Blockly.Python.valueToCode(block, 'image_2', Blockly.Python.ORDER_ATOMIC);
+   var value_image_1 = Blockly.Python.valueToCode(block, 'image_1', Blockly.Python.ORDER_ATOMIC);
+  var value_const = Blockly.Python.valueToCode(block, 'const', Blockly.Python.ORDER_ATOMIC);
   // TODO: Assemble Python into code variable.
-  var code = '...';
+  var code = value_image_1 + "\n";
+  code = code +  "image1 = global_img";
+  code = code + "\n" + "global_img = image1-"+value_const;
   // TODO: Change ORDER_NONE to the correct strength.
   return [code];
 };
@@ -212,9 +260,9 @@ Blockly.Python['im_subtraction_const'] = function(block) {
 Blockly.Blocks['image_variable'] = {
   init: function() {
     this.appendValueInput("NAME")
-        .setCheck("mat")
-        .appendField("Image")
-        .appendField(new Blockly.FieldTextInput("img"), "image_variable");
+    .setCheck("mat")
+    .appendField("Image")
+    .appendField(new Blockly.FieldTextInput("img"), "image_variable");
     this.setColour(75);
     this.setTooltip('define image variable');
     this.setHelpUrl('');
@@ -234,8 +282,8 @@ Blockly.Python['image_variable'] = function(block) {
 Blockly.Blocks['image_variable_access'] = {
   init: function() {
     this.appendDummyInput()
-        .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField(new Blockly.FieldTextInput("img"), "variable_img");
+    .setAlign(Blockly.ALIGN_RIGHT)
+    .appendField(new Blockly.FieldTextInput("img"), "variable_img");
     this.setOutput(true, "mat");
     this.setColour(75);
     this.setTooltip('define image variable');
@@ -254,10 +302,10 @@ Blockly.Python['image_variable_access'] = function(block) {
 Blockly.Blocks['image_variable_in_statement'] = {
   init: function() {
     this.appendValueInput("NAME")
-        .setCheck("mat")
-        .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("variable")
-        .appendField(new Blockly.FieldTextInput("img"), "variable_img");
+    .setCheck("mat")
+    .setAlign(Blockly.ALIGN_RIGHT)
+    .appendField("variable")
+    .appendField(new Blockly.FieldTextInput("img"), "variable_img");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(75);
