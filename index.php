@@ -340,12 +340,24 @@
       </category>
       <category name= "Image Functions" colour = "220">
       <category name= "Frequently Used" colour = "120">
+          <category name= "variable" colour = "120">
+            <block type="image_variable"></block>
+            <block type="image_variable_access"></block>
+            <block type="image_variable_in_statement"></block>
+          </category>
           <category name= "I/O" colour = "120">
             <block type="read_image"></block>
             <block type="display_image"></block>
           </category>
           <category name= "Color Transforms" colour = "120">
             <block type="convert_color"></block>
+          </category>
+          <category name= "Arithmetic" colour = "120">
+            <block type="im_addition"></block>
+            <block type="im_difference"></block>
+            <block type="im_multiply_const"></block>
+            <block type="im_addition_const"></block>
+            <block type="im_subtraction_const"></block>
           </category>
           <category name= "Enhancement" colour = "120">
             <block type="hist_eq"></block>

@@ -84,3 +84,192 @@ Blockly.Python['convert_color'] = function(block) {
   // TODO: Change ORDER_NONE to the correct strength.
   return [code];
 };
+
+// arithmatic functions
+
+Blockly.Blocks['im_difference'] = {
+  init: function() {
+    this.appendValueInput("image_1")
+        .setCheck("mat")
+        .appendField("Image 1");
+    this.appendValueInput("image_2")
+        .setCheck("mat")
+        .appendField("\"minus\"")
+        .appendField("Image 2");
+    this.setInputsInline(true);
+    this.setOutput(true, "mat");
+    this.setColour(230);
+    this.setTooltip('Use this block to subtract image 2 from image 1');
+    this.setHelpUrl('');
+  }
+};
+Blockly.Blocks['im_addition'] = {
+  init: function() {
+    this.appendValueInput("image_1")
+        .setCheck("mat")
+        .appendField("Image 1");
+    this.appendValueInput("image_2")
+        .setCheck("mat")
+        .appendField("\"plus\"")
+        .appendField("Image 2");
+    this.setInputsInline(true);
+    this.setOutput(true, "mat");
+    this.setColour(230);
+    this.setTooltip('Use this block to subtract image 2 from image 1');
+    this.setHelpUrl('');
+  }
+};
+Blockly.Blocks['im_multiply_const'] = {
+  init: function() {
+    this.appendValueInput("image_1")
+        .setCheck("mat")
+        .appendField("Input image");
+    this.appendValueInput("image_2")
+        .setCheck("Number")
+        .appendField("X constant");
+    this.setInputsInline(true);
+    this.setOutput(true, "mat");
+    this.setColour(230);
+    this.setTooltip('Use this block to multiply the input image with a constant ');
+    this.setHelpUrl('');
+  }
+};
+Blockly.Blocks['im_addition_const'] = {
+  init: function() {
+    this.appendValueInput("image_1")
+        .setCheck("mat")
+        .appendField("Input image");
+    this.appendValueInput("image_2")
+        .setCheck("Number")
+        .appendField("+ constant");
+    this.setInputsInline(true);
+    this.setOutput(true, "mat");
+    this.setColour(230);
+    this.setTooltip('Use this block to add a constant to the input image');
+    this.setHelpUrl('');
+  }
+};
+Blockly.Blocks['im_subtraction_const'] = {
+  init: function() {
+    this.appendValueInput("image_1")
+        .setCheck("mat")
+        .appendField("Input image");
+    this.appendValueInput("image_2")
+        .setCheck("Number")
+        .appendField("- constant");
+    this.setInputsInline(true);
+    this.setOutput(true, "mat");
+    this.setColour(230);
+    this.setTooltip('Use this block to subtract a constant from the input image');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Python['im_difference'] = function(block) {
+  var value_image_1 = Blockly.Python.valueToCode(block, 'image_1', Blockly.Python.ORDER_ATOMIC);
+  var value_image_2 = Blockly.Python.valueToCode(block, 'image_2', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = '...';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code];
+};
+Blockly.Python['im_addition'] = function(block) {
+  var value_image_1 = Blockly.Python.valueToCode(block, 'image_1', Blockly.Python.ORDER_ATOMIC);
+  var value_image_2 = Blockly.Python.valueToCode(block, 'image_2', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = '...';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code];
+};
+Blockly.Python['im_multiply_const'] = function(block) {
+  var value_image_1 = Blockly.Python.valueToCode(block, 'image_1', Blockly.Python.ORDER_ATOMIC);
+  var value_image_2 = Blockly.Python.valueToCode(block, 'image_2', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = '...';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code];
+};
+Blockly.Python['im_addition_const'] = function(block) {
+  var value_image_1 = Blockly.Python.valueToCode(block, 'image_1', Blockly.Python.ORDER_ATOMIC);
+  var value_image_2 = Blockly.Python.valueToCode(block, 'image_2', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = '...';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code];
+};
+Blockly.Python['im_subtraction_const'] = function(block) {
+  var value_image_1 = Blockly.Python.valueToCode(block, 'image_1', Blockly.Python.ORDER_ATOMIC);
+  var value_image_2 = Blockly.Python.valueToCode(block, 'image_2', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = '...';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code];
+};
+
+
+
+/* define variables for image*/
+Blockly.Blocks['image_variable'] = {
+  init: function() {
+    this.appendValueInput("NAME")
+        .setCheck("mat")
+        .appendField("Image")
+        .appendField(new Blockly.FieldTextInput("img"), "image_variable");
+    this.setColour(75);
+    this.setTooltip('define image variable');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Python['image_variable'] = function(block) {
+  var text_image_variable = block.getFieldValue('image_variable');
+  var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = value_name + '\n';
+  code = code  + text_image_variable + "=global_img";
+
+  return code;
+};
+
+Blockly.Blocks['image_variable_access'] = {
+  init: function() {
+    this.appendDummyInput()
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField(new Blockly.FieldTextInput("img"), "variable_img");
+    this.setOutput(true, "mat");
+    this.setColour(75);
+    this.setTooltip('define image variable');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Python['image_variable_access'] = function(block) {
+  var text_variable_img = block.getFieldValue('variable_img');
+  // TODO: Assemble Python into code variable.
+  var code  = "global_img=" + text_variable_img;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code];
+};
+
+Blockly.Blocks['image_variable_in_statement'] = {
+  init: function() {
+    this.appendValueInput("NAME")
+        .setCheck("mat")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("variable")
+        .appendField(new Blockly.FieldTextInput("img"), "variable_img");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(75);
+    this.setTooltip('define image variable');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Python['image_variable_in_statement'] = function(block) {
+  var text_variable_img = block.getFieldValue('variable_img');
+  var value_name = Blockly.Python.valueToCode(block, 'NAME', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = '...\n';
+  return code;
+};
