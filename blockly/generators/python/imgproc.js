@@ -522,5 +522,141 @@ Blockly.Python['im_resize'] = function(block) {
   code = code + "\n" + "dim = ( int(image.shape[0]*var) , int(image.shape[1]*var))";
   code = code + "\n" + "global_img = cv2.resize(image, dim, interpolation = cv2.INTER_AREA)";
   // TODO: Change ORDER_NONE to the correct strength.
+  return [code];
+};
+
+Blockly.Blocks['im_histeq_local'] = {
+  init: function() {
+    this.appendValueInput("x")
+        .setCheck("mat")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Apply Histogram Equilization on");
+    this.appendValueInput("Window")
+        .setCheck("window")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Window");
+    this.setOutput(true, "mat");
+    this.setColour(345);
+    this.setTooltip('CLAHE (Contrast Limited Adaptive Histogram Equalization)');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Blocks['im_histeq'] = {
+  init: function() {
+    this.appendValueInput("x")
+        .setCheck("mat")
+        .setAlign(Blockly.ALIGN_CENTRE)
+        .appendField("Apply Histogram Equilization on");
+    this.setOutput(true, "mat");
+    this.setColour(345);
+    this.setTooltip('Histogram Equilization');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Python['im_histeq'] = function(block) {
+  var value_image = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_ATOMIC);
+  var value_window = Blockly.Python.valueToCode(block, 'Window', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = value_image + "\n";
+  code = code + "\n" + "image = global_img";
+  code = code +"\n"+"if image.shape[2] == 3:";
+  code = code +"\n"+" img_yuv = cv2.cvtColor(image, cv2.COLOR_BGR2YUV)";
+  code = code +"\n"+" img_yuv[:,:,0] = cv2.equalizeHist(img_yuv[:,:,0])";
+  code = code +"\n"+" global_img = cv2.cvtColor(img_yuv, cv2.COLOR_YUV2BGR)";
+
+  code = code +"\n"+"else:";
+  code = code +"\n"+" global_img = cv2.equalizeHist(image)";
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code];
+};
+
+Blockly.Blocks['im_window'] = {
+  init: function() {
+    this.appendValueInput("height")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Height");
+    this.appendValueInput("width")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Width");
+    this.setInputsInline(true);
+    this.setOutput(true, "window");
+    this.setColour(230);
+    this.setTooltip('Window Size');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Python['im_window'] = function(block) {
+  var value_height = Blockly.Python.valueToCode(block, 'height', Blockly.Python.ORDER_ATOMIC);
+  var value_width = Blockly.Python.valueToCode(block, 'width', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = "array_dimension = [" + value_height +"," + value_width + "]";
+  // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.Python.ORDER_NONE];
 };
+
+Blockly.Blocks['im_histeq_local'] = {
+  init: function() {
+    this.appendValueInput("x")
+        .setCheck("mat")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Apply CLAHE on");
+    this.appendValueInput("window")
+        .setCheck("window")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Window");
+    this.setOutput(true, "mat");
+    this.setColour(230);
+    this.setTooltip('CLAHE Histogram Equilization');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Python['im_histeq_local'] = function(block) {
+  var value_x = Blockly.Python.valueToCode(block, 'x', Blockly.Python.ORDER_ATOMIC);
+  var value_window = Blockly.Python.valueToCode(block, 'window', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = value_x + "\n";
+  code = code + "\n" + "image = global_img";
+  code = code + "\n" + "win_height = window.x";
+  code = code + "\n" + "win_width = window.y";
+  code = code + "\n" + "clahe = cv2.createCLAHE(clipLimit=2, tileGridSize=(win_height, win_width))";
+  code = code + "\n" + "if image.shape[2] == 3:";
+  code = code + "\n" + " image= cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)";
+  code = code + "\n" + "global_img = clahe.apply(image)";
+
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+// Blockly.Blocks['im_dimension'] = {
+//   init: function() {
+//     this.appendValueInput("height")
+//         .setCheck("Number")
+//         .setAlign(Blockly.ALIGN_RIGHT)
+//         .appendField("Height");
+//     this.appendValueInput("width")
+//         .setCheck("Number")
+//         .setAlign(Blockly.ALIGN_RIGHT)
+//         .appendField("Width");
+//     this.setInputsInline(true);
+//     this.setOutput(true, "dimension");
+//     this.setColour(230);
+//     this.setTooltip('Use this block to input the dimensions');
+//     this.setHelpUrl('');
+//   }
+// };
+
+// Blockly.Python['im_dimension'] = function(block) {
+//   var value_height = Blockly.Python.valueToCode(block, 'height', Blockly.Python.ORDER_ATOMIC);
+//   var value_width = Blockly.Python.valueToCode(block, 'width', Blockly.Python.ORDER_ATOMIC);
+//   // TODO: Assemble Python into code variable.
+//   var code = "array_dimension = [" + value_height +"," + value_width + "]";
+//   // TODO: Change ORDER_NONE to the correct strength.
+//   return [code, Blockly.Python.ORDER_NONE];
+// };
+

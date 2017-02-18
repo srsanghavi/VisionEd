@@ -344,6 +344,7 @@
             <block type="image_variable"></block>
             <block type="image_variable_access"></block>
             <block type="image_variable_in_statement"></block>
+            <block type="im_window"></block>
           </category>
           <category name= "I/O" colour = "120">
             <block type="read_image"></block>
@@ -360,8 +361,8 @@
             <block type="im_subtraction_const"></block>
           </category>
           <category name= "Enhancement" colour = "120">
-            <block type="hist_eq"></block>
-            <block type="clahe"></block>
+            <block type="im_histeq"></block>
+            <block type="im_histeq_local"></block>
           </category>
           <category name= "Geometric Transforms" colour = "120">
             <block type="im_resize"></block>
