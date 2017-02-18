@@ -321,3 +321,175 @@ Blockly.Python['image_variable_in_statement'] = function(block) {
   var code = '...\n';
   return code;
 };
+
+Blockly.Blocks['im_rotate'] = {
+  init: function() {
+    this.appendValueInput("input_image")
+        .setCheck("mat")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Rotate image");
+    this.appendValueInput("angle")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Angle");
+    this.setInputsInline(false);
+    this.setOutput(true, "mat");
+    this.setColour(230);
+    this.setTooltip('Use this block to rotate the input image by a fixed angle in anticlockwise direction');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Python['im_rotate'] = function(block) {
+  var value_input_image = Blockly.Python.valueToCode(block, 'input_image', Blockly.Python.ORDER_ATOMIC);
+  var value_angle = Blockly.Python.valueToCode(block, 'angle', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = value_input_image + "\n";
+  code = code +"image = global_img";
+  code = code + "\n" + "(h, w) = image.shape[:2]";
+  code = code + "\n" + "center = (w / 2, h / 2)";
+  code = code + "\n" + "angle = " + value_angle;
+  code = code + "\n" + "M = cv2.getRotationMatrix2D(center, angle, 1.0)";
+  code = code + "\n" + "global_img = cv2.warpAffine(image, M, (w, h))";
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code,];
+};
+
+Blockly.Blocks['im_erode'] = {
+  init: function() {
+    this.appendValueInput("input_image")
+        .setCheck("mat")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Erode Image");
+    this.appendValueInput("window")
+        .setCheck("window")
+        .appendField("Window");
+    this.setOutput(true, "mat");
+    this.setColour(345);
+    this.setTooltip('Morphology operator : ERODE');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Python['im_erode'] = function(block) {
+  var value_input_image = Blockly.Python.valueToCode(block, 'input_image', Blockly.Python.ORDER_ATOMIC);
+  var value_window = Blockly.Python.valueToCode(block, 'window', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = '...';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+
+Blockly.Blocks['im_dilate'] = {
+  init: function() {
+    this.appendValueInput("input_image")
+        .setCheck("mat")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Dilate Image");
+    this.appendValueInput("Window")
+        .setCheck("window")
+        .appendField("Window");
+    this.setOutput(true, "mat");
+    this.setColour(345);
+    this.setTooltip('Morphology operator : DILATE');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Python['im_dilate'] = function(block) {
+  var value_input_image = Blockly.Python.valueToCode(block, 'input_image', Blockly.Python.ORDER_ATOMIC);
+  var value_window = Blockly.Python.valueToCode(block, 'Window', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = '...';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Blocks['im_open'] = {
+  init: function() {
+    this.appendValueInput("input image")
+        .setCheck("mat")
+        .appendField("open image");
+    this.setOutput(true, "mat");
+    this.setColour(230);
+    this.setTooltip('Morphology operator : OPEN');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Python['im_open'] = function(block) {
+  var value_input_image = Blockly.Python.valueToCode(block, 'input image', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = '...';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Blocks['im_close'] = {
+  init: function() {
+    this.appendValueInput("input image")
+        .setCheck("mat")
+        .appendField("close image");
+    this.setOutput(true, "mat");
+    this.setColour(230);
+    this.setTooltip('Morphology operator : CLOSE');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Python['im_close'] = function(block) {
+  var value_input_image = Blockly.Python.valueToCode(block, 'input image', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = '...';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Blocks['im_region_max'] = {
+  init: function() {
+    this.appendValueInput("input image")
+        .setCheck("mat")
+        .appendField("Region Max");
+    this.appendValueInput("window")
+        .setCheck("window")
+        .appendField("Window");
+    this.setOutput(true, "mat");
+    this.setColour(230);
+    this.setTooltip('Morphology operator : Region Max');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Python['im_region_max'] = function(block) {
+  var value_input_image = Blockly.Python.valueToCode(block, 'input image', Blockly.Python.ORDER_ATOMIC);
+  var value_window = Blockly.Python.valueToCode(block, 'window', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = '...';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Python.ORDER_NONE];
+};
+
+Blockly.Blocks['im_region_min'] = {
+  init: function() {
+    this.appendValueInput("input image")
+        .setCheck("mat")
+        .appendField("Region Min");
+    this.appendValueInput("window")
+        .setCheck("mat")
+        .appendField("Window");
+    this.setOutput(true, "mat");
+    this.setColour(230);
+    this.setTooltip('Morphology operator : Region Min');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Python['im_region_min'] = function(block) {
+  var value_input_image = Blockly.Python.valueToCode(block, 'input image', Blockly.Python.ORDER_ATOMIC);
+  var value_window = Blockly.Python.valueToCode(block, 'window', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = '...';
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Python.ORDER_NONE];
+};

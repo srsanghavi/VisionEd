@@ -364,9 +364,10 @@
             <block type="clahe"></block>
           </category>
           <category name= "Geometric Transforms" colour = "120">
+            <block type="resize"></block>
+            <block type="im_rotate"></block>
             <block type="affine"></block>
             <block type="perspective"></block>
-            <block type="resize"></block>
             <block type="translate"></block>
           </category>
           <category name= "Draw" colour = "120">
