@@ -13,6 +13,9 @@
   <script src="blockly/python_compressed.js"></script>
   <script src="blockly/generators/python/imgproc.js"></script>
   <script src="code.js"></script>
+   <!-- Compiled and minified CSS -->
+  
+          
   <style type="text/css">
 
     textarea {
@@ -27,10 +30,16 @@
   </style>
 </head>
 <body>
-  <table width="99%" height="100%">
+  <div id="navbar" style="height:20px;justify-content: center;">
+    <h1 style="text-align: center;color: #111111">
+    <img src="assets/visionEd_logo.png" style="width:35px;height: 35px;">
+    <span style="    position: relative;
+    top: -8px;">visionEd</span></h1>
+  </div>
+  <table width="90%" height="90%" style="position: fixed;bottom: 20px;margin-right: 50px;margin-left: 50px">
     <tr>
       <td>
-        <h1><a href="#">VisionEd</a>
+        <h1><a href="#"></a>
           <span id="title"></span>
         </h1>
       </td>
@@ -82,7 +91,7 @@
   <pre id="content_lua" class="content"></pre>
   <pre id="content_dart" class="content"></pre>
   <textarea id="content_xml" class="content" wrap="off"></textarea>
-
+</div>
   <xml id="toolbox" style="display: none">
     <category name="{catLogic}" colour="210">
       <block type="controls_if"></block>
@@ -448,6 +457,8 @@
                  <textarea type="text" id="code_txtArea" name="code_txtArea" style="border:none ;resize: none;width: 98%;height:98vh" ></textarea>
                </form>
              </div>
-
+             <div style="width:100%">
+               <h6 style="text-align: center;position: relative;left:5px;top:3px;color: #525252">It's never been so easy!</h6>
+             </div>
            </body>
            </html>
