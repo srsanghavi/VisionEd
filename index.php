@@ -385,8 +385,9 @@
         <category name= "Segmentation" colour = "120">
           <block type="color based"></block>
           <block type="Otsu"></block>
-          <block type="Adaptive"></block>
-          <block type="Watershed"></block>
+          <block type="im_binarization_adaptive"></block>
+          <block type="im_binarization"></block>          
+          <block type="im_watershed"></block>
         </category>
 
         <category name= "Filter" colour = "120">
@@ -402,7 +403,7 @@
         </category>
 
         <category name= "Image Transform" colour = "120">
-          <block type="FFT2"></block>
+          <block type="im_fft2"></block>
           <block type="FFT shift"></block>
           <block type="iFFT2"></block>
         </category>

@@ -501,7 +501,7 @@ Code.runJS = function() {
       throw MSG['timeout'];
     }
   };
-  var headers = "import cv2\nimport urllib\nimport numpy as np";
+  var headers = "import cv2\nimport urllib\nimport numpy as np\nfrom matplotlib import pyplot as plt";
   var code = Blockly.Python.workspaceToCode(Code.workspace);
  code = headers+'\n'+code;
  document.getElementById("code_txtArea").value = code;

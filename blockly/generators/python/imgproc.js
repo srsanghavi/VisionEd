@@ -626,8 +626,8 @@ Blockly.Python['im_histeq_local'] = function(block) {
   code = code + "\n" + "win_height = array_dimension[0]";
   code = code + "\n" + "win_width = array_dimension[1]";
   code = code + "\n" + "clahe = cv2.createCLAHE(clipLimit=2, tileGridSize=(win_height, win_width))";
-  code = code + "\n" + "if image.shape[2] == 3:";
-  code = code + "\n" + " image= cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)";
+  // code = code + "\n" + "if image.shape[2] == 3:";
+  // code = code + "\n" + " image= cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)";
   code = code + "\n" + "global_img = clahe.apply(image)";
 
   // TODO: Change ORDER_NONE to the correct strength.
@@ -869,31 +869,130 @@ Blockly.Python['im_sobel'] = function(block) {
   return [code];
 };
 
-Blockly.Blocks['im_laplace'] = {
+Blockly.Blocks['im_fft2'] = {
   init: function() {
     this.appendValueInput("image")
         .setCheck("mat")
         .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Laplacian filter on");
-    this.appendValueInput("window")
-        .setCheck("window")
-        .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Window");
+        .appendField("Apply Fast Fourier Transform on");
     this.setOutput(true, "mat");
     this.setColour(230);
-    this.setTooltip('FFT filter');
+    this.setTooltip('Fast Fourier Transform');
     this.setHelpUrl('');
   }
 };
 
-Blockly.Python['im_laplace'] = function(block) {
+Blockly.Python['im_fft2'] = function(block) {
+  var value_image = Blockly.Python.valueToCode(block, 'image', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = value_image + "\n";
+  code = code + "\n" + "image = global_img";
+  // code = code + "\n" + "global_img = cv2.dft(np.float32(image),flags = cv2.DFT_COMPLEX_OUTPUT)";
+  code = code + "\n" + "global_img = np.fft.fft2(image)";
+  
+  code = code + "\n" + "image = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)";
+  code = code + "\n" + "dft = cv2.dft(np.float32(image),flags = cv2.DFT_COMPLEX_OUTPUT)";
+  code = code + "\n" + "dft_shift = np.fft.fftshift(dft)";
+
+  code = code + "\n" + "magnitude_spectrum = 20*np.log(cv2.magnitude(dft_shift[:,:,0],dft_shift[:,:,1]))";
+
+  code = code + "\n" + "plt.imshow(magnitude_spectrum, cmap = 'gray')";
+  code = code + "\n" + "plt.title('Magnitude Spectrum'), plt.xticks([]), plt.yticks([])";
+  code = code + "\n" + "plt.show()";
+
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code];
+};
+
+/*Blockly.Blocks['im_watershed'] = {
+  init: function() {
+    this.appendValueInput("image")
+        .setCheck("mat")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Image");
+    this.appendValueInput("window")
+        .setCheck("window")
+        .appendField("Window");
+    this.setColour(330);
+    this.setOutput(true, "mat");
+    this.setTooltip('Image Segmentation with Watershed Algorithm');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Python['im_watershed'] = function(block) {
   var value_image = Blockly.Python.valueToCode(block, 'image', Blockly.Python.ORDER_ATOMIC);
   var value_window = Blockly.Python.valueToCode(block, 'window', Blockly.Python.ORDER_ATOMIC);
   // TODO: Assemble Python into code variable.
   var code = value_image + "\n";
   code = code + value_window;
   code = code + "\n" + "image = global_img";
-  code = code + "\n" + "global_img = cv2.Laplacian(image,cv2.CV_64F,array_dimension[0])";
+  code = code + "\n" + "gray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)";
+  code = code + "\n" + "ret, thresh = cv2.threshold(gray,0,255,cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)";
+  code = code + "\n" + "kernel = np.ones((array_dimension[0],array_dimension[1]),np.uint8)";
+  code = code + "\n" + "opening = cv2.morphologyEx(thresh,cv2.MORPH_OPEN,kernel, iterations = 2)";
+  code = code + "\n" + "sure_bg = cv2.dilate(opening,kernel,iterations=3)";
+  code = code + "\n" + "dist_transform = cv2.distanceTransform(opening,cv2.cv.CV_DIST_L2,5)";
+  code = code + "\n" + "ret, sure_fg = cv2.threshold(dist_transform,0.7*dist_transform.max(),255,0)";
+  code = code + "\n" + "sure_fg = np.uint8(sure_fg)";
+  code = code + "\n" + "unknown = cv2.subtract(sure_bg,sure_fg)";
+  code = code + "\n" + "ret, markers = cv2.connectedComponents(sure_fg)";
+  code = code + "\n" + "markers = markers+1";
+  code = code + "\n" + "markers[unknown==255] = 0";
+  code = code + "\n" + "markers = cv2.watershed(image,markers)";
+  code = code + "\n" + "image[markers == -1] = [255,0,0]";
+  return [code];
+};*/
+
+Blockly.Blocks['im_binarization'] = {
+  init: function() {
+    this.appendValueInput("image")
+        .setCheck("mat")
+        .appendField("Apply Binarization on Image");
+    this.setOutput(true, "mat");
+    this.setColour(230);
+    this.setTooltip('Binarization');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Python['im_binarization'] = function(block) {
+  var value_image = Blockly.Python.valueToCode(block, 'image', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = value_image + "\n";
+  code = code + "\n" + "image = global_img";
+  code = code + "\n" + "ret,global_img = cv2.threshold(image,127,255,cv2.THRESH_BINARY)";
+  // code = code + "\n" + "th3 = cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,11,2)";
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code];
+};
+
+Blockly.Blocks['im_binarization_adaptive'] = {
+  init: function() {
+    this.appendValueInput("image")
+        .setCheck("mat")
+        .appendField("Apply Adaptive Binarization on Image");
+    this.appendValueInput("window")
+        .setCheck("window")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("window");
+    this.setOutput(true, "mat");
+    this.setColour(230);
+    this.setTooltip('Adaptive Binarization');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Python['im_binarization_adaptive'] = function(block) {
+  var value_image = Blockly.Python.valueToCode(block, 'image', Blockly.Python.ORDER_ATOMIC);
+  var value_window = Blockly.Python.valueToCode(block, 'window', Blockly.Python.ORDER_ATOMIC);
+
+  // TODO: Assemble Python into code variable.
+  var code = value_image + "\n";
+  code = code + value_window;
+  code = code + "\n" + "image = global_img";
+  // code = code + "\n" + "ret,thresh1 = cv2.threshold(image,127,255,cv2.THRESH_BINARY)";
+  code = code + "\n" + "global_img = cv2.adaptiveThreshold(image,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,array_dimension[0],array_dimension[1])";
   // TODO: Change ORDER_NONE to the correct strength.
   return [code];
 };
