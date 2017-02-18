@@ -493,3 +493,34 @@ Blockly.Python['im_region_min'] = function(block) {
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.Python.ORDER_NONE];
 };
+
+Blockly.Blocks['im_resize'] = {
+  init: function() {
+    this.appendValueInput("input_image")
+        .setCheck("mat")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Resize image");
+    this.appendValueInput("scale")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Scale (Positive)");
+    this.setInputsInline(false);
+    this.setOutput(true, "mat");
+    this.setColour(230);
+    this.setTooltip('Use this block to resize the image by a given scaling factor');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Python['im_resize'] = function(block) {
+  var value_input_image = Blockly.Python.valueToCode(block, 'input_image', Blockly.Python.ORDER_ATOMIC);
+  var value_scale = Blockly.Python.valueToCode(block, 'scale', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = value_input_image + "\n";
+  code = code + "\n" + "image=global_img";
+  code = code + "\n" + "var ="+ value_scale;
+  code = code + "\n" + "dim = ( int(image.shape[0]*var) , int(image.shape[1]*var))";
+  code = code + "\n" + "global_img = cv2.resize(image, dim, interpolation = cv2.INTER_AREA)";
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.Python.ORDER_NONE];
+};
