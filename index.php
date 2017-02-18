@@ -338,78 +338,65 @@
         </block>
         <block type="lists_sort"></block>
       </category>
-      <category name= "Image Functions" colour = "220">
-      <category name= "Frequently Used" colour = "120">
-          <category name= "variable" colour = "120">
+      <category name= "Image Functions" colour = "300">
+      <category name= "Basic" colour = "275">
+          <category name= "Variable" colour = "5">
             <block type="image_variable"></block>
             <block type="image_variable_access"></block>
             <block type="image_variable_in_statement"></block>
             <block type="im_window"></block>
+            <block type="im_point"></block>
+            <block type="im_three_point"></block>
           </category>
-          <category name= "I/O" colour = "120">
+          <category name= "Input/Output" colour = "25">
             <block type="read_image"></block>
             <block type="display_image"></block>
           </category>
-          <category name= "Color Transforms" colour = "120">
+          <category name= "Color Transform" colour = "50">
             <block type="convert_color"></block>
           </category>
-          <category name= "Arithmetic" colour = "120">
+          <category name= "Arithmetic Operations" colour = "85">
             <block type="im_addition"></block>
             <block type="im_difference"></block>
             <block type="im_multiply_const"></block>
             <block type="im_addition_const"></block>
             <block type="im_subtraction_const"></block>
           </category>
-          <category name= "Enhancement" colour = "120">
+          <category name= "Enhancement Operations" colour = "120">
             <block type="im_histeq"></block>
             <block type="im_histeq_local"></block>
           </category>
-          <category name= "Geometric Transforms" colour = "120">
+          <category name= "Geometric Transform" colour = "150">
             <block type="im_resize"></block>
             <block type="im_rotate"></block>
-            <block type="affine"></block>
+            <block type="im_affine"></block>
             <block type="perspective"></block>
             <block type="translate"></block>
           </category>
-          <category name= "Draw" colour = "120">
-            <block type="circle"></block>
-            <block type="rectangle"></block>
-          </category>
       </category>
-      <category name= "Special purpose" colour = "120">
-        <category name= "Object Recognition" colour = "120">
-          <block type="face_recognition"></block>
-          <block type="digit_recognition"></block>
-        </category>
 
-        <category name= "Segmentation" colour = "120">
-          <block type="color based"></block>
-          <block type="Otsu"></block>
-          <block type="im_binarization_adaptive"></block>
-          <block type="im_binarization"></block>          
-          <block type="im_watershed"></block>
-        </category>
+      <category name= "Advanced" colour = "275">
 
-        <category name= "Filter" colour = "120">
+        <category name= "Filters" colour = "1758">
           <block type="im_gaussian"></block>
           <block type="im_averaging"></block>
           <block type="im_median"></block>
           <block type="im_laplace"></block>
           <block type="im_sobel"></block>
         </category>
-
-        <category name= "Morphological Operation" colour = "120">
-          <block type="im_morph"></block>
-        </category>
-
-        <category name= "Image Transform" colour = "120">
+        <category name= "Image Transform" colour = "300">
           <block type="im_fft2"></block>
-          <block type="FFT shift"></block>
-          <block type="iFFT2"></block>
+          <block type="im_morph"></block>
+          <!-- <block type="FFT shift"></block>
+          <block type="iFFT2"></block> -->
         </category>
-
-        <block type="read_image"></block>
-        <block type="disp_image"></block>
+        <category name= "Segmentation" colour = "350">
+          <!-- <block type="color based"></block>
+          <block type="Otsu"></block> -->
+          <block type="im_binarization_adaptive"></block>
+          <block type="im_binarization"></block>          
+          <!-- <block type="im_watershed"></block> -->
+        </category>        
       </category>
     </category>
       <category name="{catColour}" colour="20">

@@ -11,7 +11,7 @@ Blockly.Blocks['read_image'] = {
     .appendField("Read Image")
     .appendField("Image URL");
     this.setOutput(true, "mat");
-    this.setColour(0);
+    this.setColour(25);
     this.setTooltip('Please provide URL of input image');
     this.setHelpUrl('');
   }
@@ -22,7 +22,7 @@ Blockly.Blocks['display_image'] = {
     this.appendValueInput("image")
     .setCheck("mat")
     .appendField("Display Image");
-    this.setColour(0);
+    this.setColour(25);
     this.setTooltip('Please provide URL of input image');
     this.setHelpUrl('');
   }
@@ -63,7 +63,7 @@ Blockly.Blocks['convert_color'] = {
     .appendField(new Blockly.FieldDropdown([["RGB2GRAY","rgb2gray"], ["RGB2HSV","rgb2hsv"]]), "from2to");
     this.setInputsInline(false);
     this.setOutput(true, "mat");
-    this.setColour(180);
+    this.setColour(50);
     this.setTooltip('Please provide input image');
     this.setHelpUrl('');
   }
@@ -98,7 +98,7 @@ Blockly.Blocks['im_difference'] = {
     .appendField("Image 2");
     this.setInputsInline(true);
     this.setOutput(true, "mat");
-    this.setColour(230);
+    this.setColour(85);
     this.setTooltip('Use this block to subtract image 2 from image 1');
     this.setHelpUrl('');
   }
@@ -114,7 +114,7 @@ Blockly.Blocks['im_addition'] = {
     .appendField("Image 2");
     this.setInputsInline(true);
     this.setOutput(true, "mat");
-    this.setColour(230);
+    this.setColour(85);
     this.setTooltip('Use this block to subtract image 2 from image 1');
     this.setHelpUrl('');
   }
@@ -129,7 +129,7 @@ Blockly.Blocks['im_multiply_const'] = {
     .appendField("X constant");
     this.setInputsInline(true);
     this.setOutput(true, "mat");
-    this.setColour(230);
+    this.setColour(85);
     this.setTooltip('Use this block to multiply the input image with a constant ');
     this.setHelpUrl('');
   }
@@ -144,7 +144,7 @@ Blockly.Blocks['im_addition_const'] = {
     .appendField("+ constant");
     this.setInputsInline(true);
     this.setOutput(true, "mat");
-    this.setColour(230);
+    this.setColour(85);
     this.setTooltip('Use this block to add a constant to the input image');
     this.setHelpUrl('');
   }
@@ -159,7 +159,7 @@ Blockly.Blocks['im_subtraction_const'] = {
     .appendField("- constant");
     this.setInputsInline(true);
     this.setOutput(true, "mat");
-    this.setColour(230);
+    this.setColour(85);
     this.setTooltip('Use this block to subtract a constant from the input image');
     this.setHelpUrl('');
   }
@@ -263,7 +263,7 @@ Blockly.Blocks['image_variable'] = {
     .setCheck("mat")
     .appendField("Image")
     .appendField(new Blockly.FieldTextInput("img"), "image_variable");
-    this.setColour(75);
+    this.setColour(5);
     this.setTooltip('define image variable');
     this.setHelpUrl('');
   }
@@ -285,7 +285,7 @@ Blockly.Blocks['image_variable_access'] = {
     .setAlign(Blockly.ALIGN_RIGHT)
     .appendField(new Blockly.FieldTextInput("img"), "variable_img");
     this.setOutput(true, "mat");
-    this.setColour(75);
+    this.setColour(5);
     this.setTooltip('define image variable');
     this.setHelpUrl('');
   }
@@ -308,7 +308,7 @@ Blockly.Blocks['image_variable_in_statement'] = {
     .appendField(new Blockly.FieldTextInput("img"), "variable_img");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
-    this.setColour(75);
+    this.setColour(5);
     this.setTooltip('define image variable');
     this.setHelpUrl('');
   }
@@ -334,7 +334,7 @@ Blockly.Blocks['im_rotate'] = {
         .appendField("Angle");
     this.setInputsInline(false);
     this.setOutput(true, "mat");
-    this.setColour(230);
+    this.setColour(150);
     this.setTooltip('Use this block to rotate the input image by a fixed angle in anticlockwise direction');
     this.setHelpUrl('');
   }
@@ -506,7 +506,7 @@ Blockly.Blocks['im_resize'] = {
         .appendField("Scale (Positive)");
     this.setInputsInline(false);
     this.setOutput(true, "mat");
-    this.setColour(230);
+    this.setColour(150);
     this.setTooltip('Use this block to resize the image by a given scaling factor');
     this.setHelpUrl('');
   }
@@ -525,22 +525,22 @@ Blockly.Python['im_resize'] = function(block) {
   return [code];
 };
 
-Blockly.Blocks['im_histeq_local'] = {
-  init: function() {
-    this.appendValueInput("x")
-        .setCheck("mat")
-        .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Apply Histogram Equilization on");
-    this.appendValueInput("Window")
-        .setCheck("window")
-        .setAlign(Blockly.ALIGN_RIGHT)
-        .appendField("Window");
-    this.setOutput(true, "mat");
-    this.setColour(345);
-    this.setTooltip('CLAHE (Contrast Limited Adaptive Histogram Equalization)');
-    this.setHelpUrl('');
-  }
-};
+// Blockly.Blocks['im_histeq_local'] = {
+//   init: function() {
+//     this.appendValueInput("x")
+//         .setCheck("mat")
+//         .setAlign(Blockly.ALIGN_RIGHT)
+//         .appendField("Apply Histogram Equilization on");
+//     this.appendValueInput("Window")
+//         .setCheck("window")
+//         .setAlign(Blockly.ALIGN_RIGHT)
+//         .appendField("Window");
+//     this.setOutput(true, "mat");
+//     this.setColour(120);
+//     this.setTooltip('CLAHE (Contrast Limited Adaptive Histogram Equalization)');
+//     this.setHelpUrl('');
+//   }
+// };
 
 Blockly.Blocks['im_histeq'] = {
   init: function() {
@@ -549,7 +549,7 @@ Blockly.Blocks['im_histeq'] = {
         .setAlign(Blockly.ALIGN_CENTRE)
         .appendField("Apply Histogram Equilization on");
     this.setOutput(true, "mat");
-    this.setColour(345);
+    this.setColour(120);
     this.setTooltip('Histogram Equilization');
     this.setHelpUrl('');
   }
@@ -584,7 +584,7 @@ Blockly.Blocks['im_window'] = {
         .appendField("Width");
     this.setInputsInline(true);
     this.setOutput(true, "window");
-    this.setColour(230);
+    this.setColour(5);
     this.setTooltip('Window Size');
     this.setHelpUrl('');
   }
@@ -610,7 +610,7 @@ Blockly.Blocks['im_histeq_local'] = {
         .setAlign(Blockly.ALIGN_RIGHT)
         .appendField("Window");
     this.setOutput(true, "mat");
-    this.setColour(230);
+    this.setColour(120);
     this.setTooltip('CLAHE Histogram Equilization');
     this.setHelpUrl('');
   }
@@ -674,7 +674,7 @@ Blockly.Blocks['im_morph'] = {
         .setAlign(Blockly.ALIGN_RIGHT)
         .appendField("Window");
     this.setOutput(true, "mat");
-    this.setColour(330);
+    this.setColour(300);
     this.setTooltip('Perform Morphological Transformations');
     this.setHelpUrl('');
   }
@@ -726,7 +726,7 @@ Blockly.Blocks['im_averaging'] = {
         .setAlign(Blockly.ALIGN_RIGHT)
         .appendField("Window");
     this.setOutput(true, "mat");
-    this.setColour(230);
+    this.setColour(175);
     this.setTooltip('Averaging Blur Filter');
     this.setHelpUrl('');
   }
@@ -755,7 +755,7 @@ Blockly.Blocks['im_gaussian'] = {
         .setAlign(Blockly.ALIGN_RIGHT)
         .appendField("Window");
     this.setOutput(true, "mat");
-    this.setColour(230);
+    this.setColour(175);
     this.setTooltip('Gaussian Blur Filter');
     this.setHelpUrl('');
   }
@@ -784,7 +784,7 @@ Blockly.Blocks['im_median'] = {
         .setAlign(Blockly.ALIGN_RIGHT)
         .appendField("Window");
     this.setOutput(true, "mat");
-    this.setColour(230);
+    this.setColour(175);
     this.setTooltip('Median Blur Filter');
     this.setHelpUrl('');
   }
@@ -813,7 +813,7 @@ Blockly.Blocks['im_laplace'] = {
         .setAlign(Blockly.ALIGN_RIGHT)
         .appendField("Window");
     this.setOutput(true, "mat");
-    this.setColour(230);
+    this.setColour(175);
     this.setTooltip('Laplacian filter');
     this.setHelpUrl('');
   }
@@ -844,7 +844,7 @@ Blockly.Blocks['im_sobel'] = {
         .setAlign(Blockly.ALIGN_RIGHT)
         .appendField("window");
     this.setOutput(true, "mat");
-    this.setColour(230);
+    this.setColour(175);
     this.setTooltip('detect edges on the horizontal or vertical direction');
     this.setHelpUrl('');
   }
@@ -876,7 +876,7 @@ Blockly.Blocks['im_fft2'] = {
         .setAlign(Blockly.ALIGN_RIGHT)
         .appendField("Apply Fast Fourier Transform on");
     this.setOutput(true, "mat");
-    this.setColour(230);
+    this.setColour(300);
     this.setTooltip('Fast Fourier Transform');
     this.setHelpUrl('');
   }
@@ -950,7 +950,7 @@ Blockly.Blocks['im_binarization'] = {
         .setCheck("mat")
         .appendField("Apply Binarization on Image");
     this.setOutput(true, "mat");
-    this.setColour(230);
+    this.setColour(350);
     this.setTooltip('Binarization');
     this.setHelpUrl('');
   }
@@ -977,7 +977,7 @@ Blockly.Blocks['im_binarization_adaptive'] = {
         .setAlign(Blockly.ALIGN_RIGHT)
         .appendField("window");
     this.setOutput(true, "mat");
-    this.setColour(230);
+    this.setColour(350);
     this.setTooltip('Adaptive Binarization');
     this.setHelpUrl('');
   }
@@ -993,6 +993,121 @@ Blockly.Python['im_binarization_adaptive'] = function(block) {
   code = code + "\n" + "image = global_img";
   // code = code + "\n" + "ret,thresh1 = cv2.threshold(image,127,255,cv2.THRESH_BINARY)";
   code = code + "\n" + "global_img = cv2.adaptiveThreshold(image,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,array_dimension[0],array_dimension[1])";
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code];
+};
+
+
+Blockly.Blocks['im_affine'] = {
+  init: function() {
+    this.appendValueInput("image")
+        .setCheck("mat")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Apply affine transform on image");
+    this.appendValueInput("input_points")
+        .setCheck("four_point")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("On points (coordinates)");
+    this.appendValueInput("output_points")
+        .setCheck("four_point")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Which are mapped to points");
+    this.setOutput(true, "mat");
+    this.setColour(150);
+    this.setTooltip('Apply affine transform to the input image');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Python['im_affine'] = function(block) {
+  var value_image = Blockly.Python.valueToCode(block, 'image', Blockly.Python.ORDER_ATOMIC);
+  var value_input_points = Blockly.Python.valueToCode(block, 'input_points', Blockly.Python.ORDER_ATOMIC);
+  var value_output_points = Blockly.Python.valueToCode(block, 'output_points', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = value_image + "\n";
+  code = code + value_input_points;
+  code = code +"\n" + "input_pts = array_point";
+  code = code +"\n" + value_output_points;
+    code = code +"\n" + "output_pts = array_point";
+  code = code + "\n" + "image = global_img";
+  code = code + "\n" + "rows,cols,ch = image.shape";
+  code = code + "\n" + "pts1 = np.float32(input_pts)";
+  code = code + "\n" + "pts2 = np.float32(output_pts)";
+  code = code + "\n" + "M = cv2.getPerspectiveTransform(pts1,pts2)";
+  code = code + "\n" + "dst = cv2.warpPerspective(image,M,(cols,rows))";
+  code = code + "\n" + "global_img = dst";
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code];
+};
+
+Blockly.Blocks['im_point'] = {
+  init: function() {
+    this.appendValueInput("in_point_1")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("X");
+    this.appendValueInput("in_point_2")
+        .setCheck("Number")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField(", Y");
+    this.setInputsInline(true);
+    this.setOutput(true, "point");
+    this.setColour(5);
+    this.setTooltip('Input image point');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Python['im_point'] = function(block) {
+  var value_in_point_1 = Blockly.Python.valueToCode(block, 'in_point_1', Blockly.Python.ORDER_ATOMIC);
+  var value_in_point_2 = Blockly.Python.valueToCode(block, 'in_point_2', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = "pt_x="+value_in_point_1;
+  code = code + "\n" +"pt_y="+value_in_point_2;
+   code = code + "\n" + "array_point = [pt_x,pt_y]";
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code];
+};
+
+Blockly.Blocks['im_three_point'] = {
+  init: function() {
+    this.appendValueInput("in_point_1")
+        .setCheck("point")
+        .appendField("Input point 1");
+    this.appendValueInput("in_point_2")
+        .setCheck("point")
+        .appendField("Input point 2");
+    this.appendValueInput("in_point_3")
+        .setCheck("point")
+        .appendField("Input point 3");
+    this.appendValueInput("in_point_4")
+        .setCheck("point")
+        .appendField("Input point 4");
+    this.setOutput(true, "four_point");
+    this.setColour(5);
+    this.setTooltip('Input three points');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Python['im_three_point'] = function(block) {
+  var value_in_point_1 = Blockly.Python.valueToCode(block, 'in_point_1', Blockly.Python.ORDER_ATOMIC);
+  var value_in_point_2 = Blockly.Python.valueToCode(block, 'in_point_2', Blockly.Python.ORDER_ATOMIC);
+  var value_in_point_3 = Blockly.Python.valueToCode(block, 'in_point_3', Blockly.Python.ORDER_ATOMIC);
+  var value_in_point_4 = Blockly.Python.valueToCode(block, 'in_point_4', Blockly.Python.ORDER_ATOMIC);
+
+  // TODO: Assemble Python into code variable.
+  var code = value_in_point_1 + "\n";
+  code = code + "pt1 = array_point";
+  code = code + "\n" + value_in_point_2;
+  code = code + "\n" + "pt2 = array_point";
+  code = code + "\n" + value_in_point_3;
+  code = code + "\n" + "pt3 = array_point";
+  code = code + "\n" + value_in_point_4;
+  code = code + "\n" + "pt4 = array_point";
+  code = code + "\n" + "array_point = [pt1,pt2,pt3,pt4]";
+
+  //var code = "array_point = [[" + value_in_point_1[0] +"," + value_in_point_1[1] + "],"+"[" + value_in_point_2[0] +"," + value_in_point_2[1] + "],"+"[" + value_in_point_3[0] +"," + value_in_point_3[1] + "]"+"]";
   // TODO: Change ORDER_NONE to the correct strength.
   return [code];
 };

@@ -2,21 +2,51 @@ import cv2
 import urllib
 import numpy as np
 from matplotlib import pyplot as plt
-req = urllib.urlopen('https://pbs.twimg.com/media/BVvNNn3CUAE0LLY.jpg')
+req = urllib.urlopen('http://www.hack4fun.org/h4f/sites/default/files/bindump/lena.bmp')
 arr = np.asarray(bytearray(req.read()), dtype=np.uint8)
 img = cv2.imdecode(arr,-1)
 global_img = img
-global_img =  cv2.cvtColor(global_img, cv2.COLOR_BGR2GRAY)
-array_dimension = [15,15]
+pt_x=10
+pt_y=10
+array_point = [pt_x,pt_y]
+pt1 = array_point
+pt_x=500
+pt_y=10
+array_point = [pt_x,pt_y]
+pt2 = array_point
+pt_x=10
+pt_y=500
+array_point = [pt_x,pt_y]
+pt3 = array_point
+pt_x=500
+pt_y=500
+array_point = [pt_x,pt_y]
+pt4 = array_point
+array_point = [pt1,pt2,pt3,pt4]
+input_pts = array_point
+pt_x=50
+pt_y=50
+array_point = [pt_x,pt_y]
+pt1 = array_point
+pt_x=400
+pt_y=10
+array_point = [pt_x,pt_y]
+pt2 = array_point
+pt_x=100
+pt_y=500
+array_point = [pt_x,pt_y]
+pt3 = array_point
+pt_x=400
+pt_y=500
+array_point = [pt_x,pt_y]
+pt4 = array_point
+array_point = [pt1,pt2,pt3,pt4]
+output_pts = array_point
 image = global_img
-win_height = array_dimension[0]
-win_width = array_dimension[1]
-clahe = cv2.createCLAHE(clipLimit=2, tileGridSize=(win_height, win_width))
-global_img = clahe.apply(image)
-array_dimension = [3,3]
-image = global_img
-global_img = cv2.GaussianBlur(image,(array_dimension[0],array_dimension[1]),0)
-array_dimension = [15,15]
-image = global_img
-global_img = cv2.adaptiveThreshold(image,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,cv2.THRESH_BINARY,array_dimension[0],array_dimension[1])
+rows,cols,ch = image.shape
+pts1 = np.float32(input_pts)
+pts2 = np.float32(output_pts)
+M = cv2.getPerspectiveTransform(pts1,pts2)
+dst = cv2.warpPerspective(image,M,(cols,rows))
+global_img = dst
 cv2.imwrite('temp.jpg',global_img)
