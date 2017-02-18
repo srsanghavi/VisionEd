@@ -596,7 +596,7 @@ Blockly.Python['im_window'] = function(block) {
   // TODO: Assemble Python into code variable.
   var code = "array_dimension = [" + value_height +"," + value_width + "]";
   // TODO: Change ORDER_NONE to the correct strength.
-  return [code, Blockly.Python.ORDER_NONE];
+  return [code];
 };
 
 Blockly.Blocks['im_histeq_local'] = {
@@ -621,16 +621,17 @@ Blockly.Python['im_histeq_local'] = function(block) {
   var value_window = Blockly.Python.valueToCode(block, 'window', Blockly.Python.ORDER_ATOMIC);
   // TODO: Assemble Python into code variable.
   var code = value_x + "\n";
+  code = code + value_window;
   code = code + "\n" + "image = global_img";
-  code = code + "\n" + "win_height = window.x";
-  code = code + "\n" + "win_width = window.y";
+  code = code + "\n" + "win_height = array_dimension[0]";
+  code = code + "\n" + "win_width = array_dimension[1]";
   code = code + "\n" + "clahe = cv2.createCLAHE(clipLimit=2, tileGridSize=(win_height, win_width))";
   code = code + "\n" + "if image.shape[2] == 3:";
   code = code + "\n" + " image= cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)";
   code = code + "\n" + "global_img = clahe.apply(image)";
 
   // TODO: Change ORDER_NONE to the correct strength.
-  return [code, Blockly.Python.ORDER_NONE];
+  return [code];
 };
 
 // Blockly.Blocks['im_dimension'] = {
@@ -660,3 +661,239 @@ Blockly.Python['im_histeq_local'] = function(block) {
 //   return [code, Blockly.Python.ORDER_NONE];
 // };
 
+Blockly.Blocks['im_morph'] = {
+  init: function() {
+    this.appendValueInput("image")
+        .setCheck("mat")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Perform")
+        .appendField(new Blockly.FieldDropdown([["Erosion","im_erode"], ["Dilation","im_dilate"], ["Opening","im_open"], ["Closing","im_close"], ["Gradient","im_gradient"], ["Top Hat","im_tophat"], ["Black Hat","im_blackhat"]]), "Morphological")
+        .appendField("on Image");
+    this.appendValueInput("window")
+        .setCheck("window")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Window");
+    this.setOutput(true, "mat");
+    this.setColour(330);
+    this.setTooltip('Perform Morphological Transformations');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Python['im_morph'] = function(block) {
+  var dropdown_morphological = block.getFieldValue('Morphological');
+  var value_image = Blockly.Python.valueToCode(block, 'image', Blockly.Python.ORDER_ATOMIC);
+  var value_window = Blockly.Python.valueToCode(block, 'window', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = value_image + "\n";
+  code = code + value_window;
+  code = code + "\n" + "image = global_img";
+  code = code + "\n" + "kernel = np.ones((array_dimension[0],array_dimension[1]),np.uint8)";
+
+  if(dropdown_morphological == "im_erode"){
+    code = code + "\n" + "global_img = cv2.erode(image,kernel,iterations = 1)";
+  }
+  else if(dropdown_morphological == "im_dilate"){
+    code = code + "\n" + "global_img = cv2.dilate(image,kernel,iterations = 1)";
+  }
+  else if(dropdown_morphological == "im_open"){
+    code = code + "\n" + "global_img = cv2.morphologyEx(image, cv2.MORPH_OPEN, kernel)";
+  }
+  else if(dropdown_morphological == "im_close"){
+    code = code + "\n" + "global_img = cv2.morphologyEx(image, cv2.MORPH_CLOSE, kernel)";
+  }
+  else if(dropdown_morphological == "im_gradient"){
+    code = code + "\n" + "global_img = cv2.morphologyEx(image, cv2.MORPH_GRADIENT, kernel)";
+  }
+  else if(dropdown_morphological == "im_tophat"){
+    code = code + "\n" + "global_img = cv2.morphologyEx(image, cv2.MORPH_TOPHAT, kernel)";
+  }
+  else if(dropdown_morphological == "im_blackhat"){
+    code = code + "\n" + "global_img = cv2.morphologyEx(image, cv2.MORPH_BLACKHAT, kernel)";
+  }
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code];
+};
+
+Blockly.Blocks['im_averaging'] = {
+  init: function() {
+    this.appendValueInput("image")
+        .setCheck("mat")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Averaging blur on");
+    this.appendValueInput("window")
+        .setCheck("window")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Window");
+    this.setOutput(true, "mat");
+    this.setColour(230);
+    this.setTooltip('Averaging Blur Filter');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Python['im_averaging'] = function(block) {
+  var value_image = Blockly.Python.valueToCode(block, 'image', Blockly.Python.ORDER_ATOMIC);
+  var value_window = Blockly.Python.valueToCode(block, 'window', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = value_image + "\n";
+  code = code + value_window;
+  code = code + "\n" + "image = global_img";
+  code = code + "\n" + "global_img = cv2.blur(image,(array_dimension[0],array_dimension[1]),0)";
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code];
+};
+
+Blockly.Blocks['im_gaussian'] = {
+  init: function() {
+    this.appendValueInput("image")
+        .setCheck("mat")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Gaussian blur on");
+    this.appendValueInput("window")
+        .setCheck("window")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Window");
+    this.setOutput(true, "mat");
+    this.setColour(230);
+    this.setTooltip('Gaussian Blur Filter');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Python['im_gaussian'] = function(block) {
+  var value_image = Blockly.Python.valueToCode(block, 'image', Blockly.Python.ORDER_ATOMIC);
+  var value_window = Blockly.Python.valueToCode(block, 'window', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = value_image + "\n";
+  code = code + value_window;
+  code = code + "\n" + "image = global_img";
+  code = code + "\n" + "global_img = cv2.GaussianBlur(image,(array_dimension[0],array_dimension[1]),0)";
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code];
+};
+
+Blockly.Blocks['im_median'] = {
+  init: function() {
+    this.appendValueInput("image")
+        .setCheck("mat")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Median blur on");
+    this.appendValueInput("window")
+        .setCheck("window")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Window");
+    this.setOutput(true, "mat");
+    this.setColour(230);
+    this.setTooltip('Median Blur Filter');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Python['im_median'] = function(block) {
+  var value_image = Blockly.Python.valueToCode(block, 'image', Blockly.Python.ORDER_ATOMIC);
+  var value_window = Blockly.Python.valueToCode(block, 'window', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = value_image + "\n";
+  code = code + value_window;
+  code = code + "\n" + "image = global_img";
+  code = code + "\n" + "global_img = cv2.medianBlur(image,array_dimension[0])";
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code];
+};
+
+Blockly.Blocks['im_laplace'] = {
+  init: function() {
+    this.appendValueInput("image")
+        .setCheck("mat")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Laplacian filter on");
+    this.appendValueInput("window")
+        .setCheck("window")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Window");
+    this.setOutput(true, "mat");
+    this.setColour(230);
+    this.setTooltip('Laplacian filter');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Python['im_laplace'] = function(block) {
+  var value_image = Blockly.Python.valueToCode(block, 'image', Blockly.Python.ORDER_ATOMIC);
+  var value_window = Blockly.Python.valueToCode(block, 'window', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = value_image + "\n";
+  code = code + value_window;
+  code = code + "\n" + "image = global_img";
+  code = code + "\n" + "global_img = cv2.Laplacian(image,cv2.CV_64F,array_dimension[0])";
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code];
+};
+
+Blockly.Blocks['im_sobel'] = {
+  init: function() {
+    this.appendValueInput("image")
+        .setCheck("mat")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Sobel filter on")
+        .appendField(new Blockly.FieldDropdown([["x","x"], ["y","y"]]), "axis")
+        .appendField("on Image");
+    this.appendValueInput("window")
+        .setCheck("window")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("window");
+    this.setOutput(true, "mat");
+    this.setColour(230);
+    this.setTooltip('detect edges on the horizontal or vertical direction');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Python['im_sobel'] = function(block) {
+  var dropdown_axis = block.getFieldValue('axis');
+  var value_image = Blockly.Python.valueToCode(block, 'image', Blockly.Python.ORDER_ATOMIC);
+  var value_window = Blockly.Python.valueToCode(block, 'window', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = value_image + "\n";
+  code = code + value_window;
+  code = code + "\n" + "image = global_img";
+  if(dropdown_axis == "x"){
+    code = code + "\n" + "global_img = cv2.Sobel(image,cv2.CV_64F,1,0,array_dimension[0])";
+  }
+  else if(dropdown_axis == "y"){
+    code = code + "\n" + "global_img = cv2.Sobel(image,cv2.CV_64F,0,1,array_dimension[0])";
+
+  }
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code];
+};
+
+Blockly.Blocks['im_laplace'] = {
+  init: function() {
+    this.appendValueInput("image")
+        .setCheck("mat")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Laplacian filter on");
+    this.appendValueInput("window")
+        .setCheck("window")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("Window");
+    this.setOutput(true, "mat");
+    this.setColour(230);
+    this.setTooltip('FFT filter');
+    this.setHelpUrl('');
+  }
+};
+
+Blockly.Python['im_laplace'] = function(block) {
+  var value_image = Blockly.Python.valueToCode(block, 'image', Blockly.Python.ORDER_ATOMIC);
+  var value_window = Blockly.Python.valueToCode(block, 'window', Blockly.Python.ORDER_ATOMIC);
+  // TODO: Assemble Python into code variable.
+  var code = value_image + "\n";
+  code = code + value_window;
+  code = code + "\n" + "image = global_img";
+  code = code + "\n" + "global_img = cv2.Laplacian(image,cv2.CV_64F,array_dimension[0])";
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code];
+};

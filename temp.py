@@ -1,18 +1,11 @@
 import cv2
 import urllib
 import numpy as np
-(req = urllib.urlopen('https://cdn.pixabay.com/photo/2016/03/28/12/35/cat-1285634_960_720.png')
+req = urllib.urlopen('http://docs.opencv.org/3.0-beta/_images/fft4.jpg')
 arr = np.asarray(bytearray(req.read()), dtype=np.uint8)
 img = cv2.imdecode(arr,-1)
 global_img = img
-
+array_dimension = [8,3]
 image = global_img
-win_height = window.x
-win_width = window.y
-clahe = cv2.createCLAHE(clipLimit=2, tileGridSize=(win_height, win_width))
-if image.shape[2] == 3:
- image= cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-global_img = clahe.apply(image))
-img=global_img
-global_img=img
+global_img = cv2.Sobel(image,cv2.CV_64F,1,0,array_dimension[0])
 cv2.imwrite('temp.jpg',global_img)

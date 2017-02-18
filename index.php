@@ -390,28 +390,21 @@
         </category>
 
         <category name= "Filter" colour = "120">
-          <block type="Dynamic"></block>
-          <block type="Gaussian"></block>
-          <block type="Average"></block>
-          <block type="Laplace"></block>
-          <block type="Sobel"></block>
-          <block type="Prewitt"></block>
-          <block type="Krisch"></block>
+          <block type="im_gaussian"></block>
+          <block type="im_averaging"></block>
+          <block type="im_median"></block>
+          <block type="im_laplace"></block>
+          <block type="im_sobel"></block>
         </category>
 
         <category name= "Morphological Operation" colour = "120">
-          <block type="Dilate"></block>
-          <block type="Erode"></block>
-          <block type="Open"></block>
-          <block type="Close"></block>
-          <block type="Region Max"></block>
-          <block type="Region Min"></block>
+          <block type="im_morph"></block>
         </category>
 
         <category name= "Image Transform" colour = "120">
           <block type="FFT2"></block>
           <block type="FFT shift"></block>
-          <block type="DCT2"></block>
+          <block type="iFFT2"></block>
         </category>
 
         <block type="read_image"></block>
