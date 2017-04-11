@@ -2,20 +2,51 @@
 
 goog.provide('Blockly.Python.variables');
 
-goog.require('Blockly.Python');
 
+/*
+ Read Image from external URL
+ Input : Text
+ Output: Mat_RGB
+*/
+
+goog.require('Blockly.Python');
 Blockly.Blocks['read_image'] = {
   init: function() {
     this.appendValueInput("url")
     .setCheck("String")
     .appendField("Read Image")
     .appendField("Image URL");
-    this.setOutput(true, "mat");
+    this.setOutput(true, "mat_rgb");
     this.setColour(25);
-    this.setTooltip('Please provide URL of input image');
+    this.setTooltip('Please provide URL of an input image');
     this.setHelpUrl('');
   }
 };
+
+/*Python Generator code
+  Read Image from external source
+  Check the whether input image is RGBor grayscale
+  Convert image into RGB if not
+*/
+
+Blockly.Python['read_image'] = function(block) {
+  var dropdown_image_type = block.getFieldValue('image type');
+  var value_read_image = Blockly.Python.valueToCode(block, 'url', Blockly.Python.ORDER_ATOMIC);
+
+  //read image from url
+  var code = "req = urllib.urlopen("+value_read_image+")";
+  code = code +"\n" +"arr = np.asarray(bytearray(req.read()), dtype=np.uint8)";
+  code = code +"\n" +"img = cv2.imdecode(arr,-1)";
+  code = code +"\n" +""
+  //define universal global image "vcv_globalImg"
+  
+  code = code + "\n" + "vcv_globalImg = img";
+
+  return [code];
+};
+
+
+
 
 Blockly.Blocks['display_image'] = {
   init: function() {
@@ -28,19 +59,6 @@ Blockly.Blocks['display_image'] = {
   }
 };
 
-
-Blockly.Python['read_image'] = function(block) {
-  var dropdown_image_type = block.getFieldValue('image type');
-  var value_read_image = Blockly.Python.valueToCode(block, 'url', Blockly.Python.ORDER_ATOMIC);
-
-  //read image from url
-  var code = "req = urllib.urlopen("+value_read_image+")";
-  code = code +"\n" +"arr = np.asarray(bytearray(req.read()), dtype=np.uint8)"+"\n"+"img = cv2.imdecode(arr,-1)";
-  
-  //define global image
-  code = code + "\n" + "global_img = img";
-  return [code];
-};
 
 
 Blockly.Python['display_image'] = function(block) {
@@ -1030,7 +1048,7 @@ Blockly.Python['im_affine'] = function(block) {
   code = code +"\n" + value_output_points;
     code = code +"\n" + "output_pts = array_point";
   code = code + "\n" + "image = global_img";
-  code = code + "\n" + "rows,cols,ch = image.shape";
+  code = code + "\n" + "rows,cols = image.shape";
   code = code + "\n" + "pts1 = np.float32(input_pts)";
   code = code + "\n" + "pts2 = np.float32(output_pts)";
   code = code + "\n" + "M = cv2.getPerspectiveTransform(pts1,pts2)";
