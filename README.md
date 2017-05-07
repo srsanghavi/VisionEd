@@ -1,4 +1,4 @@
-<h3 style="text-align:center"><img src="http://srsanghavi.com/img/visionEd.png" style="height:20vh;width:auto"></h3>
+<h3 style="text-align:center"><img src="http://srsanghavi.com/img/visionEd.png" style="height:40vh;width:auto"></h3>
 <p style="text-align:justify">
 visionEd is a powerful block based rapid prototyping tool to develop computer vision based applications.
 <br>
