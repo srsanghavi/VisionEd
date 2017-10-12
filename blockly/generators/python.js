@@ -16,7 +16,7 @@ Blockly.Blocks['read_image'] = {
     .setCheck("String")
     .appendField("Read Image")
     .appendField("Image URL");
-    this.setOutput(true, "mat_rgb");
+    this.setOutput(true, "mat");
     this.setColour(25);
     this.setTooltip('Please provide URL of an input image');
     this.setHelpUrl('');
