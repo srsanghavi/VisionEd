@@ -6,4 +6,3 @@ The block based approach makes it easy for amateurs to test out their ideas with
 <br>
 Also, the extensive library of blocks allows experts to quickly simulate advanced vision algorithms.
 </p>
-<h3 style="text-align:center"><a href="http://130.211.180.19/VisionEd/"> Live Demo </a></h3> (works with Google Chrome)
